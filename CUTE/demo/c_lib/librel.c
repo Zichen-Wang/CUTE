@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define MAX_NODE 2000000
+#define MAX_NODE 4000000
 
 struct GraphEdge {
     int to, relation;

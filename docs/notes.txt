@@ -1,5 +1,5 @@
-curl -d '{"input_name": "xijinping", "top_k": 10 }' -X POST http://localhost:8080/demo/entity-recommendation/
-curl -d '{"entities": ["Xi_Jinping", "Barack_Obama"]}' -X POST http://localhost:8080/demo/facts/
+curl -d '{"input_name": "xijinping", "top_k": 10 }' -X POST http://162.105.146.135:8080/demo/entity-recommendation/
+curl -d '{"entities": ["Xi_Jinping", "Barack_Obama"]}' -X POST http://162.105.146.135:8080/demo/facts/
 curl -d '{"row_number": 1, "v_number": 3, "entities": [["Barack_Obama", "United_States", "Michelle_Obama"]]}' -X POST http://localhost:8080/demo/pattern/
 
 
@@ -10,7 +10,7 @@ curl -d '{"row_number": 2, "v_number": 2, "entities": [["Apple_Inc.", "IPhone"],
 
 
 
-curl -d '{"row_number": 2, "v_number": 3, "entities": [["China", "Xi_Jinping", "Peng_Liyuan"], ["United_States", "Barack_Obama", "Michelle_Obama"]]}' -X POST http://localhost:8080/demo/attributes/
+curl -d '{"row_number": 2, "v_number": 3, "entities": [["China", "Xi_Jinping", "Peng_Liyuan"], ["United_States", "Barack_Obama", "Michelle_Obama"]]}' -X POST http://162.105.146.135:8080/demo/attributes/
 
 curl -d '{"entities": [["China"], ["United_States"], ["Canada"]], "row_number": 3, "v_number": 1}' -X POST http://162.105.146.135:8080/demo/attributes/
 
