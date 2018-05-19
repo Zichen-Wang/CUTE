@@ -1,0 +1,89 @@
+input.unselected {
+    border: 2px solid #cfcdc7;
+}
+
+input.selected {
+    border: 2px solid green;
+}
+
+input.unselected_error {
+    border: 2px solid red;
+}
+
+
+.ui-autocomplete-loading {
+    background: white url("../images/ui-anim_basic_16x16.gif") right center no-repeat;
+}
+
+table.results_table, table.results_table tr th, table.results_table tr td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+input[type=text] {
+    width: 100px;
+    padding: 2px 2px;
+    margin: 2px 1px;
+    display: inline-block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+input[type=text]:focus {
+    border: 2px solid #555;
+}
+
+button {
+    border-radius: 12px;
+    font-size: 15px;
+}
+
+div.entity_recommendation, div.attributes, div.results, div.pattern, div.sparql {
+    border: 2px solid #73AD21;
+}
+
+div.entity_recommendation {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 400px;
+    height: 250px;
+    overflow: auto;
+}
+
+div.attributes {
+    position: absolute;
+    top: 270px;
+    left: 10px;
+    width: 400px;
+    height: 400px;
+    overflow: auto;
+}
+
+div.results {
+    position: absolute;
+    top: 10px;
+    left: 420px;
+    width: 440px;
+    height: 660px;
+    overflow: auto;
+}
+
+div.pattern {
+    position: absolute;
+    top: 10px;
+    left: 870px;
+    width: 400px;
+    height: 200px;
+    overflow: auto;
+}
+
+div.sparql {
+    position: absolute;
+    top: 220px;
+    left: 870px;
+    width: 400px;
+    height: 450px;
+    overflow: auto;
+}

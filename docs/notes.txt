@@ -1,0 +1,117 @@
+curl -d '{"input_name": "xijinping", "top_k": 10 }' -X POST http://localhost:8080/demo/entity-recommendation/
+curl -d '{"entities": ["Xi_Jinping", "Barack_Obama"]}' -X POST http://localhost:8080/demo/facts/
+curl -d '{"row_number": 1, "v_number": 3, "entities": [["Barack_Obama", "United_States", "Michelle_Obama"]]}' -X POST http://localhost:8080/demo/pattern/
+
+
+curl -d '{"input_name": "Apple_Inc", "top_k": 10 }' -X POST http://localhost:8080/demo/entity-recommendation/
+
+curl -d '{"row_number": 2, "v_number": 2, "entities": [["Apple_Inc.", "IPhone"], ["Samsung", "Galaxy_4"]]}' -X POST http://localhost:8080/demo/pattern/
+
+
+
+
+curl -d '{"row_number": 2, "v_number": 3, "entities": [["China", "Xi_Jinping", "Peng_Liyuan"], ["United_States", "Barack_Obama", "Michelle_Obama"]]}' -X POST http://localhost:8080/demo/attributes/
+
+curl -d '{"entities": [["China"], ["United_States"], ["Canada"]], "row_number": 3, "v_number": 1}' -X POST http://162.105.146.135:8080/demo/attributes/
+
+curl -d '{"row_number": 2, "v_number": 3, "entities": [["China", "Xi_Jinping", "Peng_Liyuan"], ["United_States", "Barack_Obama", "Michelle_Obama"]]}' -X POST http://localhost:8080/demo/pattern/
+
+curl -d '{"exp": true, "row_number": 2, "v_number": 3, "entities": [["China", "Xi_Jinping", "Peng_Liyuan"], ["United_States", "Barack_Obama", "Michelle_Obama"]]}' -X POST http://localhost:8080/demo/pattern/
+
+curl -d '{"v_number": 3, "entities": ["China", "Xi_Jinping", "Peng_Liyuan"]}' -X POST http://localhost:8080/demo/one-row-direction/
+curl -d '{"v_number": 3, "entities": ["United_States", "Barack_Obama", "Michelle_Obama"]}' -X POST http://localhost:8080/demo/one-row-direction/
+
+curl -d '{"row_number": 2, "v_number": 3, "entities": [["Xi_Jinping", "China", "Peng_Liyuan"], ["Barack_Obama", "United_States", "Michelle_Obama"]]}' -X POST http://localhost:8080/demo/pattern/
+
+curl -d '{"row_number": 1, "v_number": 1, "entities": [["Moscow"]]}' -X POST http://localhost:8080/demo/pattern/
+curl -d '{"row_number": 1, "v_number": 1, "entities": [["Moscow"]]}' -X POST http://localhost:8080/demo/attributes/
+
+curl -d '{"row_number": 2, "v_number": 3, "entities": [["Dick_Van_Dyke", "Barry_Van_Dyke", "Murder_101_(film_series)"], ["Jerry_Stiller", "Ben_Stiller", "The_Independent_(2000_film)"]]}' -X POST http://localhost:8080/demo/attributes/
+
+curl -d '{"row_number": 2, "v_number": 3, "entities": [["Dick_Van_Dyke", "Barry_Van_Dyke", "Murder_101_(film_series)"], ["Jerry_Stiller", "Ben_Stiller", "The_Independent_(2000_film)"]]}' -X POST http://localhost:8080/demo/pattern/
+
+curl -d '{"row_number": 3,"v_number": 3,"entities": [["e0_0", "e1_1", "e2_2"],["e0_0", "e1_2", "e2_3"],["e0_1", "e1_1", "e2_4"]]}' -X POST http://localhost:8080/demo/strings/
+
+
+
+BASE <http://yago-knowledge.org/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT DISTINCT ?t
+WHERE {
+    <China>  rdf:type ?t .
+    <United_States>  rdf:type ?t .
+FILTER ( isURI(?t) )
+}
+
+
+BASE <http://yago-knowledge.org/resource/>
+SELECT DISTINCT ?p ?o
+WHERE {
+    <China> ?p ?o .
+    <United_States> ?p ?o .
+FILTER (
+    isURI(?o) &&
+    regex(?p, "(hasAcademicAdvisor|isCitizenOf|isAffiliatedTo|hasCapital|isLocatedIn|hasGender|isKnownFor|wasBornIn|owns|created|isMarriedTo|isInterestedIn|participatedIn|diedIn|actedIn|isConnectedTo|hasChild|worksAt|hasCurrency|wroteMusicFor|influences|isLeaderOf|isPoliticianOf|happenedIn|playsFor|hasOfficialLanguage|hasNeighbor|graduatedFrom|hasWonPrize|dealsWith|hasMusicalRole|livesIn|edited|directed)$", "i")
+)
+}
+LIMIT 50
+
+
+BASE <http://yago-knowledge.org/resource/>
+SELECT DISTINCT ?p0 ?p1
+WHERE {
+    ?t0_0 ?p0 <China> .
+    <Peng_Liyuan> ?p1 ?t0_0 .
+
+    ?t1_0 ?p0 <United_States> .
+    <Michelle_Obama> ?p1 ?t1_0 .
+
+FILTER ( isURI(?t0_0) )
+FILTER ( ?t0_0 != <China> && ?t0_0 != <Xi_Jinping> && ?t0_0 != <Peng_Liyuan> )
+FILTER ( isURI(?t1_0) )
+FILTER ( ?t1_0 != <United_States> && ?t1_0 != <Barack_Obama> && ?t1_0 != <Michelle_Obama> )
+FILTER ( regex(?p0, "(hasAcademicAdvisor|isCitizenOf|isAffiliatedTo|hasCapital|isLocatedIn|hasGender|isKnownFor|wasBornIn|owns|created|isMarriedTo|isInterestedIn|participatedIn|diedIn|actedIn|isConnectedTo|hasChild|worksAt|hasCurrency|wroteMusicFor|influences|isLeaderOf|isPoliticianOf|happenedIn|playsFor|hasOfficialLanguage|hasNeighbor|graduatedFrom|hasWonPrize|dealsWith|hasMusicalRole|livesIn|edited|directed)$", "i") && regex(?p1, "(hasAcademicAdvisor|isCitizenOf|isAffiliatedTo|hasCapital|isLocatedIn|hasGender|isKnownFor|wasBornIn|owns|created|isMarriedTo|isInterestedIn|participatedIn|diedIn|actedIn|isConnectedTo|hasChild|worksAt|hasCurrency|wroteMusicFor|influences|isLeaderOf|isPoliticianOf|happenedIn|playsFor|hasOfficialLanguage|hasNeighbor|graduatedFrom|hasWonPrize|dealsWith|hasMusicalRole|livesIn|edited|directed)$", "i") )
+}
+LIMIT 1
+
+BASE <http://yago-knowledge.org/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT DISTINCT ?v0 ?v1 ?v2
+WHERE {
+    ?v0 <isLeaderOf> ?v1 .
+    ?v0 <isMarriedTo> ?v2 .
+    ?t2_0 <isLocatedIn> ?v1 .
+    ?v2 <graduatedFrom> ?t2_0 .
+
+
+FILTER ( isURI(?v0) && isURI(?v1) && isURI(?v2) )
+
+###
+}
+LIMIT 50
+OFFSET 0
+
+
+types and facts ranking
+sparql ranking
+reduce interaction
+
+curl -d '{"v_number": 3, "types": {"v0": [],"v1": [],"v2": []},"facts": {"v0": {"facts_po": [], "facts_sp": []}, "v1": {"facts_po": [], "facts_sp": []}, "v2": {"facts_po": [], "facts_sp": []}},"pattern": {"r_0_1": [{"s": "?v0", "p": "isLeaderOf", "o": "?v1"}], "r_0_2": [{"s": "?v0", "p": "isMarriedTo", "o": "?v2"}], "r_1_2": [{"s": "?t2_0", "p": "isLocatedIn", "o": "?v1"}, {"s": "?v2", "p": "graduatedFrom", "o": "?t2_0"}]},"limit": 50, "offset": 0}' -X POST http://localhost:8080/demo/query-positive/
+
+
+curl -d '{"v_number": 3, "types": {"v0": ["wikicat_American_male_film_actors"],"v1": ["wikicat_American_male_film_actors"],"v2": ["wordnet_movie_106613686"]},"facts": {"v0": {"facts_po": [{"p": "hasGender", "o": "male"}], "facts_sp": []}, "v1": {"facts_po": [{"p": "hasGender", "o": "male"}], "facts_sp": []}, "v2": {"facts_po": [], "facts_sp": []}},"pattern": {"r_0_1": [{"s": "?v0", "p": "hasChild", "o": "?v1"}], "r_0_2": [{"s": "?v0", "p": "actedIn", "o": "?v2"}], "r_1_2": [{"s": "?v1", "p": "actedIn", "o": "?v2"}]},"limit": 50, "offset": 0}' -X POST http://localhost:8080/demo/query-positive/
+
+
+
+curl -d '{"v_number": 3, "old_sparql": "BASE <http://yago-knowledge.org/resource/>\r\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\nSELECT DISTINCT ?v0 ?v1 ?v2\r\nWHERE {\r\n    ?v0 <hasChild> ?v1 .\r\n    ?v0 <actedIn> ?v2 .\r\n    ?v1 <actedIn> ?v2 .\r\n\r\n    ?v0 rdf:type <wikicat_American_male_film_actors> .\r\n    ?v1 rdf:type <wikicat_American_male_film_actors> .\r\n    ?v2 rdf:type <wordnet_movie_106613686> .\r\n\r\n    ?v0 <hasGender> <male> .\r\n    ?v1 <hasGender> <male> .\r\nFILTER ( isURI(?v0) && isURI(?v1) && isURI(?v2) )\r\n\r\n###\r\n}\r\nLIMIT 50\r\nOFFSET 0\r\n", "strings": {"v0": [], "v1": [],"v2": []}, "types": {"v0": [],"v1": [],"v2": []},"facts": {"v0": {"facts_po": [], "facts_sp": []}, "v1": {"facts_po": [], "facts_sp": []}, "v2": {"facts_po": [], "facts_sp": []}},"limit": 50, "offset": 0}' -X POST http://localhost:8080/demo/query-negative/
+
+curl -d '{"v_number": 3, "old_sparql": "BASE <http://yago-knowledge.org/resource/>\r\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\nSELECT DISTINCT ?v0 ?v1 ?v2\r\nWHERE {\r\n    ?v0 <hasChild> ?v1 .\r\n    ?v0 <actedIn> ?v2 .\r\n    ?v1 <actedIn> ?v2 .\r\n\r\n    ?v0 rdf:type <wikicat_American_male_film_actors> .\r\n    ?v1 rdf:type <wikicat_American_male_film_actors> .\r\n    ?v2 rdf:type <wordnet_movie_106613686> .\r\n\r\n    ?v0 <hasGender> <male> .\r\n    ?v1 <hasGender> <male> .\r\nFILTER ( isURI(?v0) && isURI(?v1) && isURI(?v2) )\r\n\r\n###\r\n}\r\nLIMIT 50\r\nOFFSET 0\r\n", "strings": {"v0": ["aaa", "bb"], "v1": ["cc"],"v2": []}, "types": {"v0": ["wordnet_comedian_109940146", "wikicat_American_screenwriters"],"v1": ["wikicat_American_male_voice_actors"],"v2": []},"facts": {"v0": {"facts_po": [], "facts_sp": []}, "v1": {"facts_po": [], "facts_sp": []}, "v2": {"facts_po": [], "facts_sp": []}},"limit": 50, "offset": 0}' -X POST http://localhost:8080/demo/query-negative/
+
+curl -d '{"v_number": 3, "old_sparql": "BASE <http://yago-knowledge.org/resource/>\r\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\nSELECT DISTINCT ?v0 ?v1 ?v2\r\nWHERE {\r\n    ?v0 <hasChild> ?v1 .\r\n    ?v0 <actedIn> ?v2 .\r\n    ?v1 <actedIn> ?v2 .\r\n\r\n    ?v0 rdf:type <wikicat_American_male_film_actors> .\r\n    ?v1 rdf:type <wikicat_American_male_film_actors> .\r\n    ?v2 rdf:type <wordnet_movie_106613686> .\r\n\r\n    ?v0 <hasGender> <male> .\r\n    ?v1 <hasGender> <male> .\r\nFILTER ( isURI(?v0) && isURI(?v1) && isURI(?v2) )\r\n\r\n###\r\n}\r\nLIMIT 50\r\nOFFSET 0\r\n", "strings": {"v0": ["aaa", "bb"], "v1": ["cc"],"v2": []}, "types": {"v0": ["wordnet_comedian_109940146", "wikicat_American_screenwriters"],"v1": ["wikicat_American_male_voice_actors"],"v2": []}, "facts": {"v0": {"facts_po": [{"p": "hasGender", "o": "female"}], "facts_sp": []}, "v1": {"facts_po": [{"p": "hasGender", "o": "female"}], "facts_sp": []}, "v2": {"facts_po": [], "facts_sp": []}},"limit": 50, "offset": 0}' -X POST http://localhost:8080/demo/query-negative/
+
+
+curl -d '{"v_number": 3, "old_sparql": "BASE <http://yago-knowledge.org/resource/>\r\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\nSELECT DISTINCT ?v0 ?v1 ?v2\r\nWHERE {\r\n    ?v0 <hasChild> ?v1 .\r\n    ?v0 <actedIn> ?v2 .\r\n    ?v1 <actedIn> ?v2 .\r\n\r\n    ?v0 rdf:type <wikicat_American_male_film_actors> .\r\n    ?v1 rdf:type <wikicat_American_male_film_actors> .\r\n    ?v2 rdf:type <wordnet_movie_106613686> .\r\n\r\n    ?v0 <hasGender> <male> .\r\n    ?v1 <hasGender> <male> .\r\nFILTER ( isURI(?v0) && isURI(?v1) && isURI(?v2) )\r\n\r\nFILTER ( ?v0 != <aaa> && ?v0 != <bb> )\r\nFILTER ( ?v1 != <cc> )\r\nFILTER NOT EXISTS {\r\n    ?v0 rdf:type ?t0 .\r\n    ?v1 rdf:type ?t1 .\r\n    FILTER ( regex(?t0, \"(wordnet_comedian_109940146|wikicat_American_screenwriters)$\", \"-i\") )\r\n    FILTER ( regex(?t1, \"(wikicat_American_male_voice_actors)$\", \"-i\") )\r\n}\r\nFILTER NOT EXISTS {\r\n    ?v0 <hasGender> <female> .\r\n    ?v1 <hasGender> <female> .\r\n}\r\n###\r\n}\r\nLIMIT 50\r\nOFFSET 0\r\n", "strings": {"v0": ["dd", "ff"], "v1": ["cc"],"v2": ["xx"]}, "types": {"v0": ["wordnet_comedian_109940146", "wikicat_American_screenwriters"],"v1": ["wikicat_American_male_voice_actors"],"v2": []}, "facts": {"v0": {"facts_po": [{"p": "hasGender", "o": "female"}], "facts_sp": []}, "v1": {"facts_po": [{"p": "hasGender", "o": "haha"}], "facts_sp": [{"s": "fasd", "p": "fuck"}]}, "v2": {"facts_po": [{"p": "ttt", "o": "test"}, {"p": "fff", "o": "ttt"}], "facts_sp": []}},"limit": 50, "offset": 0}' -X POST http://localhost:8080/demo/query-negative/
+
+
+curl -d '{"sparql": "BASE <http://yago-knowledge.org/resource/>\r\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\nSELECT DISTINCT ?v0 ?v1 ?v2\r\nWHERE {\r\n    ?v0 <hasChild> ?v1 .\r\n    ?v0 <actedIn> ?v2 .\r\n    ?v1 <actedIn> ?v2 .\r\n\r\n    ?v0 rdf:type <wikicat_American_male_film_actors> .\r\n    ?v1 rdf:type <wikicat_American_male_film_actors> .\r\n    ?v2 rdf:type <wordnet_movie_106613686> .\r\n\r\n    ?v0 <hasGender> <male> .\r\n    ?v1 <hasGender> <male> .\r\nFILTER ( isURI(?v0) && isURI(?v1) && isURI(?v2) )\r\n\r\nFILTER ( ?v0 != <aaa> && ?v0 != <bb> )\r\nFILTER ( ?v1 != <cc> )\r\nFILTER NOT EXISTS {\r\n    ?v0 rdf:type ?t0 .\r\n    ?v1 rdf:type ?t1 .\r\n    FILTER ( regex(?t0, \"(wordnet_comedian_109940146|wikicat_American_screenwriters)$\", \"-i\") )\r\n    FILTER ( regex(?t1, \"(wikicat_American_male_voice_actors)$\", \"-i\") )\r\n}\r\nFILTER NOT EXISTS {\r\n    ?v0 <hasGender> <female> .\r\n    ?v1 <hasGender> <female> .\r\n}\r\n###\r\n}\r\nLIMIT 50\r\nOFFSET 0\r\n", "limit": 10, "offset": 10}' -X POST http://localhost:8080/demo/get-more-results/
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>CUTE - Query RDF by Tabular Examples</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'demo/favicon.ico' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'demo/jquery-ui-1.12.1/jquery-ui.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'demo/css/main.css' %}" />
+    <script src="{% static 'demo/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'demo/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'demo/js/query.js' %}"></script>
+    <script src="{% static 'demo/js/pattern.js' %}"></script>
+    <script src="{% static 'demo/js/negative_attributes.js' %}"></script>
+    <script src="{% static 'demo/js/attributes.js' %}"></script>
+    <script src="{% static 'demo/js/entity_recommendation.js' %}"></script>
+    <script src="{% static 'demo/js/main.js' %}"></script>
+</head>
+<body>
+
+    <div class="entity_recommendation">
+        <div class="modify">
+            <button id="add_col">+col</button>
+            <button id="del_col">-col</button>
+            <button id="add_row">+row</button>
+            <button id="del_row">-row</button>
+        </div>
+
+        <div class="input">
+            <table class="input_table">
+                <tr class="title">
+                    <th>v0</th>
+                    <th>v1</th>
+                </tr>
+
+                <tr class="row_0">
+                    <td><input type="text" name="entity_0_0" class="unselected" /></td>
+                    <td><input type="text" name="entity_0_1" class="unselected" /></td>
+                </tr>
+
+                <tr class="row_1">
+                    <td><input type="text" name="entity_1_0" class="unselected" /></td>
+                    <td><input type="text" name="entity_1_1" class="unselected" /></td>
+                </tr>
+
+            </table>
+        </div>
+
+        <div class="submit">
+            <button id="entity_submit">submit</button>
+            <img class="entity_submitting" style="display: none;" src="{% static 'demo/images/ui-anim_basic_16x16.gif' %}" />
+        </div>
+
+    </div>
+
+    <div class="attributes">
+    </div>
+    <div class="results">
+    </div>
+    <div class="pattern">
+    </div>
+    <div class="sparql">
+    </div>
+
+</body>
+</html>
