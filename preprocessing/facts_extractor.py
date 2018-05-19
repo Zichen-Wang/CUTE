@@ -1,8 +1,9 @@
 import os
 import sys
+import math
 
-def cleaning():
-    #valid_set = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_,.()'"
+def extracting():
+    valid_set = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_,.()'"
     entity = set()
     relation = set()
 
@@ -11,11 +12,11 @@ def cleaning():
     fp = open('../CUTE/data/relation.txt', 'w')
     first = True
     for line in open(sys.argv[1]):
-        line = line.strip().split('\t')
         if first:
             first = False
             continue
-        '''
+        
+        line = line.strip().split('\t')
         flag = True
         for c in line[1].strip("<>"):
             if c not in valid_set:
@@ -30,7 +31,7 @@ def cleaning():
                 break
         if flag == False:
             continue
-        '''
+        
 
         if line[2] == "<hasWebsite>" or line[2] == "<imports>" or line[2] == "<exports>":
             continue
@@ -75,7 +76,7 @@ def make_weight():
     dic_po = {}
     dic_sp = {}
     tot = 0
-    for edge in open("../CUTE/data/fact2id.txt"):
+    for edge in open("fact2id.txt"):
         edge = edge.strip().split(" ")
         edges.append(edge)
 
@@ -118,14 +119,15 @@ def make_weight():
 
 def main():
     if len(sys.argv) < 2:
-        print('Usage: python3 facts_cleaner.py [raw_facts_file]')
+        print('Usage: python3 facts_extractor.py [raw_facts_file]')
         return
-    cleaning()
-    print("cleaning done.")
+    extracting()
+    print("extracting done.")
     fact2id()
     print("fact2id done.")
     make_weight()
-    os.remove('../CUTE/data/fact2id.txt')
+    os.remove('facts.txt')
+    os.remove('fact2id.txt')
    
 
 if __name__ == '__main__':
