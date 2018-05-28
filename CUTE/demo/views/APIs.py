@@ -343,7 +343,7 @@ def find_pattern(request):
         "pattern": common_relations
     })
 
-def query_positive(request):
+def query_positive(request): #deprecated
     if request.method != 'POST':
         return HttpResponseBadRequest("<h1>Please request via POST</h1>")
 
@@ -410,7 +410,7 @@ def query_positive(request):
         "results": results
     })
 
-def find_strings(request):
+def find_strings(request): # deprecated
     if request.method != 'POST':
         return HttpResponseBadRequest("<h1>Please request via POST</h1>")
 
@@ -431,7 +431,7 @@ def find_strings(request):
         "strings": strings
     })
 
-def query_negative(request):
+def query_negative(request): # deprecated
     if request.method != 'POST':
         return HttpResponseBadRequest("<h1>Please request via POST</h1>")
 
@@ -518,6 +518,120 @@ def query_negative(request):
         "sparql": sparql,
         "results": results
     })
+
+def query(request):
+    if request.method != 'POST':
+        return HttpResponseBadRequest("<h1>Please request via POST</h1>")
+
+    json_dict = json.loads(request.body.decode('utf-8'))
+    v_number = json_dict["v_number"]
+
+    sparql = ''
+    sparql += 'BASE <%s>\r\n' % BASE
+    sparql += 'PREFIX rdf: <%s>\r\n' % PREFIX_RDF
+    sparql += 'SELECT DISTINCT'
+
+    for i in range(v_number):
+        sparql += ' ?v%d' % i
+
+    sparql += '\r\n'
+    sparql += 'WHERE {\r\n'
+
+    # Add pattern
+    for i in range(v_number):
+        for j in range(i + 1, v_number):
+            relations = json_dict["pattern"]["r_%d_%d" % (i, j)]
+            for edge in relations:
+                sparql += '    %s <%s> %s .\r\n' % (edge["s"], edge["p"], edge["o"])
+    sparql += '\r\n'
+
+    # Add positive types
+    for i in range(v_number):
+        for t in json_dict["pos_types"]["v%d" % i]:
+            sparql += '    ?v%d rdf:type <%s> .\r\n' % (i, t)
+
+    # Add positive facts
+    sparql += '\r\n'
+    for i in range(v_number):
+        for po in json_dict["pos_facts"]["v%d" % i]["facts_po"]:
+            sparql += '    ?v%d <%s> <%s> .\r\n' % (i, po["p"], po["o"])
+
+        for sp in json_dict["pos_facts"]["v%d" % i]["facts_sp"]:
+            sparql += '    <%s> <%s> ?v%d .\r\n' % (sp["s"], sp["p"], i)
+
+
+    # Add general restriction
+    sparql += 'FILTER ('
+    for i in range(v_number):
+        if i != 0:
+            sparql += ' &&'
+        sparql += ' isURI(?v%d)' % i
+
+    sparql += ' )\r\n'
+
+    # Add negative types
+
+    for i in range(v_number):
+        if len(json_dict["neg_types"]["v%d" % i]) > 0:
+            sparql += 'FILTER NOT EXISTS {\r\n'
+            break
+
+    for i in range(v_number):
+        if len(json_dict["neg_types"]["v%d" % i]) > 0:
+            sparql += '    ?v%d rdf:type ?t%d .\r\n' % (i, i)
+
+    for i in range(v_number):
+        first_flag = True
+        for t in json_dict["neg_types"]["v%d" % i]:
+            if first_flag == True:
+                sparql += '    FILTER ( regex(?t%d, "(' % i
+                first_flag = False
+            else:
+                sparql += '|'
+            sparql += t
+
+        if first_flag == False:
+            sparql += ')$", "-i") )\r\n'
+
+    for i in range(v_number):
+        if len(json_dict["neg_types"]["v%d" % i]) > 0:
+            sparql += '}\r\n'
+            break
+
+    # Add negative facts
+    for i in range(v_number):
+        if len(json_dict["neg_facts"]["v%d" % i]["facts_po"]) or len(json_dict["neg_facts"]["v%d" % i]["facts_sp"]) > 0:
+            sparql += 'FILTER NOT EXISTS {\r\n'
+            break
+
+    for i in range(v_number):
+        for fact_po in json_dict["neg_facts"]["v%d" % i]["facts_po"]:
+            sparql += '    ?v%d <%s> <%s> .\r\n' % (i, fact_po["p"], fact_po["o"])
+
+        for fact_sp in json_dict["neg_facts"]["v%d" % i]["facts_sp"]:
+            sparql += '    <%s> <%s> ?v%d .\r\n' % (fact_sp["s"], fact_sp["p"], i)
+
+    for i in range(v_number):
+        if len(json_dict["neg_facts"]["v%d" % i]["facts_po"]) or len(json_dict["neg_facts"]["v%d" % i]["facts_sp"]) > 0:
+            sparql += '}\r\n'
+            break
+
+
+    sparql += '}\r\n'
+
+    # Add limit and offset
+    sparql += 'LIMIT %d\r\n' % json_dict["limit"]
+    sparql += 'OFFSET %d\r\n' % json_dict["offset"]
+
+    results = query_final_sparql(sparql);
+    if results == None:
+        return HttpResponseBadRequest("<h1>Bad SPARQL query</h1>")
+
+    return JsonResponse({
+        "sparql": sparql,
+        "results": results
+    })
+
 
 def get_more_results(request):
     if request.method != 'POST':

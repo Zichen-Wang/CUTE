@@ -145,14 +145,11 @@ similar to one relation
 tot: n * (n - 1) / 2 pairs.
 ```
 
-### UI query_positive SPARQL and results
-* the UI should show the common attributes to users for `selection`.
-* The UI will also show the common relations to users.
-* sending common attributes API
-    * URL: `http://162.105.146.135:8080/demo/query-positive/`
-    * method: `POST`
-    * data: `JSON`
-    * response: `JSON`
+### Query by positive examples (deprecated)
+* URL: `http://162.105.146.135:8080/demo/query-positive/`
+* method: `POST`
+* data: `JSON`
+* response: `JSON`
 ```
 e.g.
 
@@ -200,6 +197,78 @@ response:
 }
 ```
 
+### query by both positive and negative examples
+* URL: `http://162.105.146.135:8080/demo/query/`
+* method: `POST`
+* data: `JSON`
+* response: `JSON`
+```
+e.g.
+
+data:
+{
+    "v_number": 3,
+    "pos_types": {
+        "v0": [],
+        "v1": [],
+        "v2": []
+    },
+    "pos_facts": {
+        "v0": {
+            "facts_po": [{"p": "xxx"}, {"o": "xxx"}, ...],
+            "facts_sp": [{"s": "xxx"}, {"p": "xxx"}, ...]
+        },
+        "v1": {
+            "facts_po": [],
+            "facts_sp": []
+        },
+        "v2": {
+            "facts_po": [],
+            "facts_sp": []
+        }
+    },
+    "neg_types": {
+        "v0": [],
+        "v1": [],
+        "v2": []
+    },
+    "neg_facts": {
+        "v0": {
+            "facts_po": [{"p": "xxx"}, {"o": "xxx"}, ...],
+            "facts_sp": [{"s": "xxx"}, {"p": "xxx"}, ...]
+        },
+        "v1": {
+            "facts_po": [],
+            "facts_sp": []
+        },
+        "v2": {
+            "facts_po": [],
+            "facts_sp": []
+        }
+    },
+    "pattern": {
+        "r_0_1": [{"p": "hasChild", "o": "?v1", "s": "?v0"}],
+        "r_0_2": [{"p": "actedIn", "o": "?v2", "s": "?v0"}],
+        "r_1_2": [{"p": "actedIn", "o": "?v2", "s": "?v1"}]
+    },
+    "limit": 50
+    "offset": 0
+}
+
+# limit: the max number of results displayed in one page
+# offset: from where the results displayed
+
+response:
+{
+    "sparql": "xxx",
+    "results": [
+        {"v0": "xxx", "v1": "xxx", "v2": "xxx"},
+        {"v0": "xxx", "v1": "xxx", "v2": "xxx"},
+        ...
+    ]
+}
+```
+
 
 ## Answer refinement
 ### Common Strings (deprecated)
@@ -235,7 +304,7 @@ response:
 }
 ```
 
-### Interaction (similar to before)
+### Interaction (similar to before) (deprecated)
 * Users can choose results that they are not interested in.
 * Query these negative results via `common strings` and `common attributes` api.
 * sending negative common attributes API:

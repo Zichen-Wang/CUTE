@@ -83,7 +83,7 @@ def query_final_sparql(sparql):
         'default-graph-uri': '',
         'query': sparql,
         'format': 'application/sparql-results+json',
-        'timeout': 2000,
+        'timeout': 3000,
         'debug': 'on'
     }
 
@@ -139,7 +139,7 @@ class QUERY_TYPES:
             'default-graph-uri': '',
             'query': sparql,
             'format': 'application/sparql-results+json',
-            'timeout': 2000,
+            'timeout': 3000,
             'debug': 'on'
         }
 
@@ -219,7 +219,7 @@ class QUERY_FACTS:
             'default-graph-uri': '',
             'query': sparql,
             'format': 'application/sparql-results+json',
-            'timeout': 2000,
+            'timeout': 3000,
             'debug': 'on'
         }
 
@@ -437,7 +437,7 @@ class QUERY_RELATION_NAMES:
             'default-graph-uri': '',
             'query': sparql,
             'format': 'application/sparql-results+json',
-            'timeout': 2000,
+            'timeout': 3000,
             'debug': 'on'
         }
         

@@ -11,7 +11,8 @@ urlpatterns = [
     path('one-row-direction/', APIs.find_one_row_direction, name='one-row-direction'),
     path('pattern/', APIs.find_pattern, name='pattern'),
     path('query-positive/', APIs.query_positive, name='query-positive'),
-    path('strings/', APIs.find_strings, name='strings'),
-    path('query-negative/', APIs.query_negative, name='query-negative'),
+    path('strings/', APIs.find_strings, name='strings'), # deprecated
+    path('query-negative/', APIs.query_negative, name='query-negative'), #deprecated
+    path('query/', APIs.query, name='query'),
     path('get-more-results/', APIs.get_more_results, name='get_more_results'),
 ]
