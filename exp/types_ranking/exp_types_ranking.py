@@ -9,7 +9,7 @@ count_o = {}
 def cmp_f(x):
     if x in count_f:
         return count_f[x]
-    return 35.59
+    return 288.74
 
 def cmp_o(x):
     if x in count_o:
