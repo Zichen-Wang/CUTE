@@ -28,7 +28,7 @@ var entity_recommendation = function() {
             $(this).removeClass("unselected").removeClass("unselected_error").addClass("selected");
             console.log(ui.item);
         }
-    }
+    };
 
     $("input[type='text']").autocomplete(entity_recommendation_dict);
 
@@ -37,7 +37,7 @@ var entity_recommendation = function() {
     });
 
     $("#add_col").click(function() {
-        if (v_number == MAX_COLUMN) {
+        if (v_number === MAX_COLUMN) {
             alert("Too many columns!");
             return;
         }
@@ -59,7 +59,7 @@ var entity_recommendation = function() {
     });
 
     $("#del_col").click(function() {
-        if (v_number == 1) {
+        if (v_number === 1) {
             alert("Only one column exists!");
             return;
         }
@@ -71,7 +71,7 @@ var entity_recommendation = function() {
     });
 
     $("#add_row").click(function() {
-        if (row_number == MAX_ROW) {
+        if (row_number === MAX_ROW) {
             alert("Too many rows!");
             return;
         }
@@ -93,7 +93,7 @@ var entity_recommendation = function() {
     });
 
     $("#del_row").click(function() {
-        if (row_number == 1) {
+        if (row_number === 1) {
             alert("Only one row exists!");
             return;
         }
@@ -111,7 +111,7 @@ var entity_recommendation = function() {
             let row_entities = [];
             for (let j = 0; j < v_number; j++) {
                 let input_ele_name = "input[name='entity_" + i + "_" + j + "']";
-                if ($(input_ele_name).hasClass("selected") == false) {
+                if ($(input_ele_name).hasClass("selected") === false) {
                     $(input_ele_name).removeClass("unselected").addClass("unselected_error");
                     if_all_selected = false;
                 }
@@ -120,18 +120,14 @@ var entity_recommendation = function() {
             }
             entities.push(row_entities);
         }
-        if (if_all_selected == false)
+        if (if_all_selected === false)
             return;
 
         let payload = {
             "row_number": row_number,
             "v_number": v_number,
             "entities": entities
-        }
-
-        console.log(JSON.stringify(payload));
-
-
+        };
 
         let find_attributes = $.ajax({
             type: "POST",

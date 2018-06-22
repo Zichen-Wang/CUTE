@@ -1,0 +1,47 @@
+.navbar-brand {
+    font-family: 'Satisfy', cursive;
+    font-size: 25px;
+}
+
+.form-inline {
+    width: 70px;
+}
+
+input.unselected {
+    border: 2px solid #cfcdc7;
+}
+
+input.selected {
+    border: 2px solid #38cb06;
+}
+
+input.unselected_error {
+    border: 2px solid red;
+}
+
+
+.ui-autocomplete-loading {
+    background: white url("../images/ui-anim_basic_16x16.gif") right center no-repeat;
+}
+
+input[type=text] {
+    width: 100px;
+    padding: 2px 2px;
+    margin: 2px 1px;
+    display: inline-block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+input[type=text]:focus {
+    border: 2px solid #555;
+}
+
+span {
+    display:-moz-inline-box;
+    display:inline-block;
+    text-align: center;
+    width:100px;
+    word-wrap: break-word;
+}

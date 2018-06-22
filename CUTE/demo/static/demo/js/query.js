@@ -67,45 +67,6 @@ var query = function() {
 
         console.log(JSON.stringify(payload));
 
-        /*
-        let find_common_strings = $.ajax({
-            type: "POST",
-            url: "/demo/strings/",
-            data: JSON.stringify(payload),
-            dataType: "json",
-            beforeSend: function() {
-                $("button").attr("disabled", true);
-                $("img.reject_submitting").show();
-            }
-        });
-
-
-        let find_attributes = $.ajax({
-            type: "POST",
-            url: "/demo/attributes/",
-            data: JSON.stringify(payload),
-            dataType: "json",
-            beforeSend: function() {
-                $("button").attr("disabled", true);
-                $("img.reject_submitting").show();
-            }
-        });
-
-        $.when(find_common_strings, find_attributes).then(function(strings_data, attributes_data) {
-            negative_common_strings = strings_data[0]["strings"];
-            negative_common_types = attributes_data[0]["types"];
-            negative_common_facts = attributes_data[0]["facts"];
-            console.log(negative_common_strings, negative_common_types, negative_common_facts);
-            negative_attributes();
-            $("button").attr("disabled", false);
-            $("img.reject_submitting").hide();
-        }, function(err1, err2) {
-            console.log(err1);
-            console.log(err2);
-            $("button").attr("disabled", false);
-            $("img.reject_submitting").hide();
-        });
-        */
         $.ajax({
             type: "POST",
             url: "/demo/attributes/",

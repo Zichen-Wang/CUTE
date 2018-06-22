@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <title>CUTE - Query RDF by Tabular Examples</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'demo/favicon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script src="{% static 'jquery/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'demo/jquery-ui-1.12.1/jquery-ui.min.css' %}">
+    <script src="{% static 'demo/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'demo/css/style.css' %}">
+    <style>
+        @font-face {
+          font-family: 'Satisfy';
+          font-style: normal;
+          font-weight: 400;
+          src: local('Satisfy Regular'), local('Satisfy-Regular'), url({% static 'demo/fonts/rP2Hp2yn6lkG50LoCZOIHQ.woff2' %}) format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+    </style>
+    {% block script %}{% endblock %}
+    {% block style %}{% endblock %}
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'index_new' %}">CUTE</a>
+        </div>
+
+        <!-- Items -->
+        <div class="collapse navbar-collapse" id="topNavBar">
+            <ul class="nav navbar-nav">
+                <li class="{% block about_active %}{% endblock %}"><a href="{% url 'index_new' %}">首页</a></li>
+                <li><a href="https://github.com/Zichen-Wang/CUTE">Github</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    {% block body %}{% endblock %}
+</div>
+</body>
+</html>

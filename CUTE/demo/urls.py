@@ -4,6 +4,7 @@ from .views import pages, APIs
 
 urlpatterns = [
     path('', pages.index, name='index'),
+    path('new', pages.index_new, name='index_new'),
     path('entity-recommendation/', APIs.entity_recommendation, name='entity-recommendation'),
     path('types/', APIs.find_types, name='types'),
     path('facts/', APIs.find_facts, name='facts'),

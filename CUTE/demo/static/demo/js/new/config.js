@@ -1,0 +1,1 @@
+var max_entities_count = 10;
