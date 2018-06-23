@@ -1,1 +1,1 @@
-var max_entities_count = 10;
+var max_entities_count = 6;

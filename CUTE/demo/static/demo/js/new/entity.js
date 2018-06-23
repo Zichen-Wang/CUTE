@@ -28,15 +28,12 @@ $(document).ready(function () {
         }
     };
 
-    $("input[type='text']").autocomplete(entity_recommendation_dict);
+    $("input[type=text]").autocomplete(entity_recommendation_dict);
 
-    $entities = $('#entities');
-    $e_add = $('#entities_add');
-    $e_delete = $('#entities_delete');
+    let $entities = $('#entities');
+    let $e_add = $('#entities_add');
+    let $e_delete = $('#entities_delete');
 
-    $entities_count = 1;
-    $all_rows = [];
-    $all_rows_neg = [];
 
     $e_add.click(function (e) {
         if ($entities_count < max_entities_count){
@@ -60,8 +57,8 @@ $(document).ready(function () {
     });
 
     $('#entities_submit').click(function () {
-        all_correct = true;
-        $all_inputs = $('input[type=text]');
+        let all_correct = true;
+        let $all_inputs = $('input[type=text]');
         $all_inputs.each(function () {
             if (!$(this).hasClass('selected'))
             {
@@ -72,41 +69,43 @@ $(document).ready(function () {
 
         if (!all_correct) return false;
 
-        $entities_add = $('#entities_add');
+        let $entities_add = $('#entities_add');
         if ($entities_add.length !== 0) {
             $entities_add.remove();
             $('#entities_delete').remove();
-            $input_entities = $('#input_entities');
+            let $input_entities = $('#input_entities');
             for ($i = 0; $i < $entities_count; $i ++ ){
-                $input_entities.append($('<span>').text('V' + $i).attr('name', $i).click(function () {
+                $input_entities.append($('<span>').text('v' + $i).css("cursor", "pointer").attr('class', 'badge badge-primary badge-v content').attr('name', $i).attr("data-toggle", "tooltip").attr("title", "Click to select attributes").click(function () {
                     name_v = '#modal_v' + $(this).attr('name');
                     $(name_v).modal({});
                 }));
             }
-            $input_entities = $('#negvative_entities');
+            $('[data-toggle="tooltip"]').tooltip();
+            $input_entities = $('#negative_entities');
             for ($i = 0; $i < $entities_count; $i ++ ){
-                $input_entities.append($('<span>').text('V' + $i).attr('name', $i).click(function () {
-                    name_v = '#modal_v_neg' + $(this).attr('name');
+                $input_entities.append($('<span>').text('v' + $i).css("cursor", "pointer").attr('class', 'badge badge-warning badge-v content').attr('name', $i).attr("data-toggle", "tooltip").attr("title", "Click to select attributes").click(function () {
+                    let name_v = '#modal_v_neg' + $(this).attr('name');
                     $(name_v).modal({});
                 }));
             }
+            $('[data-toggle="tooltip"]').tooltip()
             $input_entities = $('#results_entities');
             for (i = 0; i < $entities_count; i ++ ){
-                $input_entities.append($('<span>').text('V' + i));
+                $input_entities.append($('<span>').text('v' + i).attr('class', 'badge badge-success badge-v content'));
             }
         }
 
-        text = "";
-        entities_line = [];
+        let text = "";
+        let entities_line = [];
         $all_inputs.each(function () {
-            text += "<span>" + this.value + "</span>";
+            text += "<p class=\"form-control-static content result\">" + this.value +"</p>";
             entities_line.push(this.value);
             this.value = '';
             $(this).removeClass('selected').addClass('unselected');
         });
         $all_rows.push(entities_line);
 
-        $('<tr>').append($('<td>').append($('<a>').text('Delete').attr('name', $all_rows.length-1).click(function () {
+        $('<tr>').append($('<td>').append($('<button>').append($('<span>').attr('class', 'glyphicon glyphicon-minus').css('width', '1.5rem')).attr('class', 'btn btn-default').attr('name', $all_rows.length-1).click(function () {
             $all_rows[parseInt(this.name)] = [];
             this.closest('tr').remove();
             submit_to_server();
@@ -117,7 +116,7 @@ $(document).ready(function () {
         return false;
     });
 
-    $all_submit = $('#all_submit');
+    let $all_submit = $('#all_submit');
     $all_submit.click(function() {
         $("div.sparql").empty();
         for (i = 0; i < all_results.length; i ++ ){
@@ -129,8 +128,8 @@ $(document).ready(function () {
 
     // Ajax for submitting
     $all_submit.click(function() {
-        selected_common_types = {};
-        selected_common_facts = {};
+        let selected_common_types = {};
+        let selected_common_facts = {};
         let empty_flag = false;
         for (let i = 0; i < $entities_count; i++) {
             let v_name = "v" + i;
@@ -162,8 +161,8 @@ $(document).ready(function () {
             }
         }
 
-        selected_common_types_neg = {};
-        selected_common_facts_neg = {};
+        let selected_common_types_neg = {};
+        let selected_common_facts_neg = {};
         empty_flag_neg = true;
         has_flag_neg = false;
         for (i = 0; i < $all_rows_neg.length; i ++ ){
@@ -199,7 +198,7 @@ $(document).ready(function () {
 
         // Check if non-selection and empty-pattern
         if (empty_flag || (has_flag_neg && empty_flag_neg)) {
-            alert("Sorry), we cannot identify your intents.\nPlease select at least 1 attribute above. :)");
+            alert("Sorry), we cannot identify your intents.\nPlease select at least 1 attribute for each column :)");
             return;
         }
 

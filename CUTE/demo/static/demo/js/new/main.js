@@ -7,7 +7,7 @@ var common_types, common_facts, common_pattern;
 var sparql, results;
 var negative_results;
 
-var negative_common_strings, negative_common_types, negative_common_facts;
+var negative_common_types, negative_common_facts;
 
 var cleaner = function(uri) {
     let wikicat = uri.indexOf("wikicat");
@@ -20,6 +20,9 @@ var cleaner = function(uri) {
 };
 
 var all_results = [];
+var $all_rows = [];
+var $all_rows_neg = [];
+var $entities_count = 1;
 
 var submit_to_server = function() {
     let entities = [];
@@ -126,3 +129,9 @@ var submit_to_server_neg = function() {
         $("img.entity_submitting_neg").hide();
     });
 };
+
+$(document).ready(function() {
+    $("button#reset").click(function() {
+        window.location.reload();
+    });
+});

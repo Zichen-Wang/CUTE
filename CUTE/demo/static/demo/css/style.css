@@ -25,7 +25,7 @@ input.unselected_error {
 }
 
 input[type=text] {
-    width: 100px;
+    width: 120px;
     padding: 2px 2px;
     margin: 2px 1px;
     display: inline-block;
@@ -38,10 +38,70 @@ input[type=text]:focus {
     border: 2px solid #555;
 }
 
-span {
+.content {
     display:-moz-inline-box;
     display:inline-block;
     text-align: center;
-    width:100px;
     word-wrap: break-word;
+    margin: 2px 1px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 100%;
+    font-weight: 700;
+    line-height: 2;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.75rem;
+    position: relative;
+    top: -1px;
+}
+
+.badge-head {
+    width: 8rem;
+}
+
+p.result {
+    width: 120px;
+    font-weight: bold;
+}
+
+
+.badge-v {
+    width: 120px;
+}
+.badge-primary {
+    color: #fff;
+    background-color: #007bff;
+}
+
+.badge-primary[href]:hover, .badge-primary[href]:focus {
+    color: #fff;
+    text-decoration: none;
+    background-color: #0062cc;
+}
+
+.badge-success {
+    color: #fff;
+    background-color: #28a745;
+}
+
+.badge-success[href]:hover, .badge-success[href]:focus {
+    color: #fff;
+    text-decoration: none;
+    background-color: #1e7e34;
+}
+
+.badge-warning {
+    color: #212529;
+    background-color: #ffc107;
+}
+
+.badge-warning[href]:hover, .badge-warning[href]:focus {
+    color: #212529;
+    text-decoration: none;
+    background-color: #d39e00;
 }
