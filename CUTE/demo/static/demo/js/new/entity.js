@@ -106,6 +106,10 @@ $(document).ready(function () {
         $all_rows.push(entities_line);
 
         $('<tr>').append($('<td>').append($('<button>').append($('<span>').attr('class', 'glyphicon glyphicon-minus').css('width', '1.5rem')).attr('class', 'btn btn-default').attr('name', $all_rows.length-1).click(function () {
+            if (parseInt(this.name) === 0) {
+                alert("Cannot delete the last positive examples.")
+                return false;
+            }
             $all_rows[parseInt(this.name)] = [];
             this.closest('tr').remove();
             submit_to_server();

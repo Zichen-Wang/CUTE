@@ -106,6 +106,7 @@ var submit_to_server_neg = function() {
         }
     });
 
+    /*
     let find_pattern = $.ajax({
         type: "POST",
         url: "/demo/pattern/",
@@ -116,6 +117,7 @@ var submit_to_server_neg = function() {
             $("img.entity_submitting_neg").show();
         }
     });
+    */
 
     $.when(find_attributes, find_pattern).then(function(attributes_data, pattern_data) {
         negative_common_types = attributes_data[0]["types"];

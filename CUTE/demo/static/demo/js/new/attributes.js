@@ -63,7 +63,7 @@ var attributes = function(neg) {
         if ($(modal_id).length){
             $(modal_id).remove();
         }
-        if (neg !== '' && $all_rows_neg.length() === 0)
+        if (neg !== '' && $all_rows_neg.length === 0)
             return;
         let modal_content = $('<div>').addClass('modal fade').
             attr('id', 'modal_v' + neg + i).attr('role', "dialog").
