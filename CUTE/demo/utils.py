@@ -155,7 +155,9 @@ class QUERY_TYPES:
 
         self.result_types = []
         for res in result_dict['results']['bindings']:
-            if res[variable_name]['value'] != "http://www.w3.org/2002/07/owl#Thing":
+            if res[variable_name]['value'] != "http://www.w3.org/2002/07/owl#Thing" \
+                and res[variable_name]['value'] != "http://yago-knowledge.org/resource/wikicat_Men" \
+                and res[variable_name]['value'] != "http://yago-knowledge.org/resource/wikicat_Women":
                 t = res[variable_name]['value']
                 self.result_types.append(t[t.rfind('/resource/') + 10 : ])
 
