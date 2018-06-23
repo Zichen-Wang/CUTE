@@ -21,6 +21,17 @@ var $all_rows = [];
 var $all_rows_neg = [];
 var $entities_count = 1;
 
+var count_all_row_pos = function() {
+    let counter = 0;
+    for (let i = 0; i < $all_rows.length; i++) {
+        if ($all_rows_neg[i].length > 0){
+            entities.push($all_rows_neg[i]);
+            counter++;
+        }
+    }
+    return counter;
+}
+
 var submit_to_server = function() {
     let entities = [];
     let row_number = 0;
@@ -106,7 +117,7 @@ var submit_to_server_neg = function() {
         }
     });
 
-    /*
+    
     let find_pattern = $.ajax({
         type: "POST",
         url: "/demo/pattern/",
@@ -117,12 +128,12 @@ var submit_to_server_neg = function() {
             $("img.entity_submitting_neg").show();
         }
     });
-    */
+    
 
     $.when(find_attributes, find_pattern).then(function(attributes_data, pattern_data) {
         negative_common_types = attributes_data[0]["types"];
         negative_common_facts = attributes_data[0]["facts"];
-        //common_pattern = pattern_data[0]["pattern"];
+        common_pattern = pattern_data[0]["pattern"];
         attributes('_neg');
         $("button").attr("disabled", false);
         $("img.entity_submitting_neg").hide();
