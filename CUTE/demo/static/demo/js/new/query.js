@@ -24,7 +24,7 @@ var query = function () {
             let entities_line = $all_rows_results[name_id];
             $all_rows.push(entities_line);
             $('<tr>').append($('<td>').append($('<button>').append($('<span>').attr('class', 'glyphicon glyphicon-minus').css('width', '1.5rem')).attr('class', 'btn btn-default').attr('name', $all_rows.length-1).click(function () {
-                if (count_all_row_pos === 1) {
+                if (count_all_row_pos() === 1) {
                     alert("Cannot delete the last positive examples.")
                     return false;
                 }

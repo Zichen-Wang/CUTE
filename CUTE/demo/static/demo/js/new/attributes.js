@@ -12,6 +12,13 @@ var attributes = function(neg) {
     for (let i = 0; i < $entities_count; i ++ ){
         let v_name = "v" + i;
         let content = $("<div>").append($("<h4>").text("Common Types:"));
+        let modal_id = '#modal_v' + neg + i;
+        if ($(modal_id).length) {
+            $(modal_id).remove();
+        }
+        if (neg !== '' && count_all_row_neg() === 0)
+            continue;
+
         for (let j = 0; j < my_common_types[v_name].length; j ++ ){
             let $type = $("<input>")
                 .attr("type", "checkbox")
@@ -59,12 +66,6 @@ var attributes = function(neg) {
             content.append($("<br>"));
         }
 
-        let modal_id = '#modal_v' + neg + i;
-        if ($(modal_id).length){
-            $(modal_id).remove();
-        }
-        if (neg !== '' && $all_rows_neg.length === 0)
-            return;
         let modal_content = $('<div>').addClass('modal fade').
             attr('id', 'modal_v' + neg + i).attr('role', "dialog").
             attr('aria-labelledby', "myModalLabel").attr('aria-hidden', "true")

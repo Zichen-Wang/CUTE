@@ -24,13 +24,21 @@ var $entities_count = 1;
 var count_all_row_pos = function() {
     let counter = 0;
     for (let i = 0; i < $all_rows.length; i++) {
-        if ($all_rows_neg[i].length > 0){
-            entities.push($all_rows_neg[i]);
+        if ($all_rows[i].length > 0)
             counter++;
-        }
     }
     return counter;
-}
+};
+
+var count_all_row_neg = function() {
+    let counter = 0;
+    for (let i = 0; i < $all_rows_neg.length; i++) {
+        if ($all_rows_neg[i].length > 0)
+            counter++;
+    }
+    return counter;
+};
+
 
 var submit_to_server = function() {
     let entities = [];
@@ -98,6 +106,8 @@ var submit_to_server_neg = function() {
     if (row_number === 0) {
         negative_common_types = [];
         negative_common_facts = [];
+        attributes('_neg');
+        return;
     }
 
     let payload = {
