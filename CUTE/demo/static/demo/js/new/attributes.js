@@ -27,7 +27,7 @@ var attributes = function(neg) {
         }
         content.append($("<hr>"));
         content.append($("<h4>").text("Common Facts:"));
-        <!-- content.append($("<h5>").text("po_" + v_name)); -->
+        // content.append($("<h5>").text("po_" + v_name));
         for (let j = 0; j < my_common_facts[v_name]["facts_po"].length; j++) {
             content.append(
                 $("<input>")
@@ -43,7 +43,7 @@ var attributes = function(neg) {
             content.append($("<br>"));
         }
         content.append($("<br>"));
-        <!-- content.append($("<h5>").text("sp_" + v_name)); -->
+        // content.append($("<h5>").text("sp_" + v_name));
         for (let j = 0; j < my_common_facts[v_name]["facts_sp"].length; j++) {
             content.append(
                 $("<input>")
@@ -63,6 +63,8 @@ var attributes = function(neg) {
         if ($(modal_id).length){
             $(modal_id).remove();
         }
+        if (neg !== '' && $all_rows_neg.length() === 0)
+            return;
         let modal_content = $('<div>').addClass('modal fade').
             attr('id', 'modal_v' + neg + i).attr('role', "dialog").
             attr('aria-labelledby', "myModalLabel").attr('aria-hidden', "true")

@@ -1,6 +1,3 @@
-const MAX_ROW = 6, MAX_COLUMN = 6;
-var row_number = 2;
-var v_number = 2;
 
 var common_types, common_facts, common_pattern;
 
@@ -26,7 +23,7 @@ var $entities_count = 1;
 
 var submit_to_server = function() {
     let entities = [];
-    row_number = 0;
+    let row_number = 0;
     for (let i = 0; i < $all_rows.length; i++) {
         if ($all_rows[i].length > 0){
             entities.push($all_rows[i]);
@@ -79,12 +76,17 @@ var submit_to_server = function() {
 
 var submit_to_server_neg = function() {
     let entities = [];
-    row_number = 0;
+    let row_number = 0;
     for (let i = 0; i < $all_rows_neg.length; i++) {
         if ($all_rows_neg[i].length > 0){
             entities.push($all_rows_neg[i]);
             row_number += 1;
         }
+    }
+
+    if (row_number === 0) {
+        negative_common_types = [];
+        negative_common_facts = [];
     }
 
     let payload = {

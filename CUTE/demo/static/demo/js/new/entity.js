@@ -198,7 +198,7 @@ $(document).ready(function () {
 
         // Check if non-selection and empty-pattern
         if (empty_flag || (has_flag_neg && empty_flag_neg)) {
-            alert("Sorry), we cannot identify your intents.\nPlease select at least 1 attribute for each column :)");
+            alert("Sorry, we cannot identify your intents.\nPlease select at least 1 attribute for each column.");
             return;
         }
 
