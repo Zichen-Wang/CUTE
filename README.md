@@ -17,7 +17,7 @@ Querying Knowledge Graphs by Tabular Examples
 /home/wangzichen/virtuoso/
 
 ## 启动脚本位置：
-/home/wangzichen/virtuoso/
+/home/wangzichen/virtuoso/start_daemon.sh
 
 ## Data load
 refer: http://vos.openlinksw.com/owiki/wiki/VOS/VirtBulkRDFLoader
