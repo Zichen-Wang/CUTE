@@ -123,7 +123,7 @@ def query_final_sparql(sparql):
                 r[v_name] = v_value
             else:
                 valid_flag = False
-                print("[WARNING] Results for Column %s has a invaild string: %s" % (v_name, v_value))
+                print("[WARNING] Results of Column %s have a invalid string: %s" % (v_name, v_value))
 
         if valid_flag == True:
             results.append(r)
