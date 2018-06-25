@@ -82,7 +82,7 @@ var submit_to_server = function() {
 
     $.when(find_attributes, find_pattern).then(function(attributes_data, pattern_data) {
         old_common_types = common_types;
-        old_common_facts = old_common_facts;
+        old_common_facts = common_facts;
 
         common_types = attributes_data[0]["types"];
         common_facts = attributes_data[0]["facts"];
@@ -177,7 +177,7 @@ var submit_to_server_neg = function() {
         success: function(data) {
             old_negative_common_types = negative_common_types;
             old_negative_common_facts = negative_common_facts;
-            
+
             negative_common_types = data["types"];
             negative_common_facts = data["facts"];
 
