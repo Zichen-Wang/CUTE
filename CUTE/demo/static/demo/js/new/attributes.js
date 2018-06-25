@@ -7,29 +7,33 @@ var attributes = function(neg) {
         my_common_types = common_types;
         my_common_facts = common_facts;
 
-        if (old_common_types !== undefined && old_common_facts !== undefined) {
-            for (let i = 0; i < $entities_count; i++) {
-                let v_name = "v" + i;
-                selected_common_types[v_name] = new Set();
+        for (let i = 0; i < $entities_count; i++) {
+            let v_name = "v" + i;
+
+            selected_common_types[v_name] = new Set();
+            if (old_common_types !== undefined) {
                 $("input[name=type_v" + i + "]:checked").each(function() {
-                    selected_common_types[v_name].add($(this).val());
+                    selected_common_types[v_name].add(old_common_types[v_name][$(this).val()]);
                 });
-
-                let selected_common_facts_po = new Set();
-                $("input[name=fact_po_v" + i + "]:checked").each(function() {
-                    selected_common_facts_po.add($(this).val());
-                });
-
-                let selected_common_facts_sp = new Set();
-                $("input[name=fact_sp_v" + i + "]:checked").each(function() {
-                    selected_common_facts_sp.add($(this).val());
-                });
-
-                selected_common_facts[v_name] = {
-                    "facts_po": selected_common_facts_po,
-                    "facts_sp": selected_common_facts_sp
-                };
             }
+            let selected_common_facts_po = new Set();
+            let selected_common_facts_sp = new Set();
+
+            if (old_common_facts !== undefined) {
+                $("input[name=fact_po_v" + i + "]:checked").each(function() {
+                    selected_common_facts_po.add(old_common_facts[v_name]["facts_po"][$(this).val()]);
+                });
+
+                $("input[name=fact_sp_v" + i + "]:checked").each(function() {
+                    selected_common_facts_sp.add(old_common_facts[v_name]["facts_sp"][$(this).val()]);
+                });
+            }
+
+
+            selected_common_facts[v_name] = {
+                "facts_po": selected_common_facts_po,
+                "facts_sp": selected_common_facts_sp
+            };
         }
     }
 
@@ -37,31 +41,46 @@ var attributes = function(neg) {
         my_common_types = negative_common_types;
         my_common_facts = negative_common_facts;
 
+        for (let i = 0; i < $entities_count; i++) {
+            let v_name = "v" + i;
 
-        if (old_negative_common_types !== undefined && old_negative_common_facts !== undefined) {
-
-            for (let i = 0; i < $entities_count; i++) {
-                let v_name = "v" + i;
-                selected_common_types[v_name] = new Set();
+            selected_common_types[v_name] = new Set();
+            if (old_negative_common_types !== undefined) {
                 $("input[name=type_v_neg" + i + "]:checked").each(function() {
-                    selected_common_types[v_name].add($(this).val());
+                    selected_common_types[v_name].add(old_negative_common_types[v_name][$(this).val()]);
                 });
-
-                let selected_common_facts_po = new Set();
-                $("input[name=fact_po_v_neg" + i + "]:checked").each(function() {
-                    selected_common_facts_po.add($(this).val());
-                });
-
-                let selected_common_facts_sp = new Set();
-                $("input[name=fact_sp_v_neg" + i + "]:checked").each(function() {
-                    selected_common_facts_sp.add($(this).val());
-                });
-
-                selected_common_facts[v_name] = {
-                    "facts_po": selected_common_facts_po,
-                    "facts_sp": selected_common_facts_sp
-                };
             }
+
+            let selected_common_facts_po = new Set();
+            let selected_common_facts_sp = new Set();
+
+            if (old_negative_common_facts !== undefined) {
+
+                $("input[name=fact_po_v_neg" + i + "]:checked").each(function() {
+                    selected_common_facts_po.add(
+                        old_negative_common_facts[v_name]["facts_po"][$(this).val()]["p"]
+                        + 
+                        "_*_"
+                        +
+                        old_negative_common_facts[v_name]["facts_po"][$(this).val()]["o"]
+                    );
+                });
+
+                $("input[name=fact_sp_v_neg" + i + "]:checked").each(function() {
+                    selected_common_facts_sp.add(
+                        old_negative_common_facts[v_name]["facts_sp"][$(this).val()]["s"]
+                        +
+                        "_*_"
+                        +
+                        old_negative_common_facts[v_name]["facts_sp"][$(this).val()]["o"]
+                    );
+                });
+            }
+
+            selected_common_facts[v_name] = {
+                "facts_po": selected_common_facts_po,
+                "facts_sp": selected_common_facts_sp
+            };
         }
 
     }
@@ -85,7 +104,7 @@ var attributes = function(neg) {
                 .attr("name", "type_v" + neg + i)
                 .val(j);
 
-            if (selected_common_types[v_name].has(j))
+            if (selected_common_types[v_name].has(my_common_types[v_name][j]))
                 $type.prop("checked", "true");
 
             if (neg === '' && j === my_common_types[v_name].length - 1)
@@ -107,7 +126,14 @@ var attributes = function(neg) {
                 .attr("name", "fact_po_v" + neg + i)
                 .val(j);
 
-            if (selected_common_facts[v_name]["facts_po"].has(j))
+            if (selected_common_facts[v_name]["facts_po"].has(
+                    my_common_facts[v_name]["facts_po"][j]["p"]
+                    +
+                    "_*_"
+                    +
+                    my_common_facts[v_name]["facts_po"][j]["o"]
+                )
+            )
                 $fact.prop("checked", "true");
 
             content.append($fact);
@@ -126,7 +152,14 @@ var attributes = function(neg) {
                 .attr("name", "fact_sp_v" + neg + i)
                 .val(j);
 
-            if (selected_common_facts[v_name]["facts_sp"].has(j))
+            if (selected_common_facts[v_name]["facts_sp"].has(
+                    my_common_facts[v_name]["facts_sp"][j]["s"]
+                    +
+                    "_*_"
+                    +
+                    my_common_facts[v_name]["facts_sp"][j]["p"]
+                )
+            )
                 $fact.prop("checked", "true");
 
             content.append($fact);
