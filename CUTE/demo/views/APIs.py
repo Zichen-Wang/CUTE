@@ -401,7 +401,7 @@ def query_positive(request): #deprecated
     sparql += 'LIMIT %d\r\n' % json_dict["limit"]
     sparql += 'OFFSET %d\r\n' % json_dict["offset"]
 
-    results = query_final_sparql(sparql);
+    results = query_final_sparql(sparql)
     if results == None:
         return HttpResponseBadRequest("<h1>Bad SPARQL query</h1>")
 
@@ -510,9 +510,9 @@ def query_negative(request): # deprecated
     sparql += 'LIMIT %d\r\n' % json_dict["limit"]
     sparql += 'OFFSET %d\r\n' % json_dict["offset"]
 
-    results = query_final_sparql(sparql);
+    results = query_final_sparql(sparql)
     if results == None:
-        return HttpResponseBadRequest("<h1>Bad SPARQL query</h1>");
+        return HttpResponseBadRequest("<h1>Bad SPARQL query</h1>")
     
     return JsonResponse({
         "sparql": sparql,
@@ -623,7 +623,7 @@ def query(request):
     sparql += 'LIMIT %d\r\n' % json_dict["limit"]
     sparql += 'OFFSET %d\r\n' % json_dict["offset"]
 
-    results = query_final_sparql(sparql);
+    results = query_final_sparql(sparql)
     if results == None:
         return HttpResponseBadRequest("<h1>Bad SPARQL query</h1>")
 
@@ -644,9 +644,9 @@ def get_more_results(request):
     sparql += 'LIMIT %d\r\n' % json_dict["limit"]
     sparql += 'OFFSET %d\r\n' % json_dict["offset"]
     
-    results = query_final_sparql(sparql);
+    results = query_final_sparql(sparql)
     if results == None:
-        return HttpResponseBadRequest("<h1>Bad SPARQL query</h1>");
+        return HttpResponseBadRequest("<h1>Bad SPARQL query</h1>")
     
     return JsonResponse({
         "sparql": sparql,

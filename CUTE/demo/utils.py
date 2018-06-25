@@ -70,11 +70,19 @@ PREFIX_RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 
 SPARQL_QUERY_URL = "http://162.105.146.140:8001/sparql"
 
+valid_set = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_,.()'"
+
 def cmp_type(x):
     if x in TYPES_RANKING:
         return TYPES_RANKING[x]
 
     return 0.970
+
+def check_valid(v_value):
+    for c in v_value:
+        if c not in valid_set:
+            return False
+    return True
 
 def query_final_sparql(sparql):
     # Query
@@ -103,8 +111,12 @@ def query_final_sparql(sparql):
         r = {}
         for i in range(len(variable_name)):
             v_name = variable_name[i]
-            v_value = res[variable_name[i]]['value']
-            r[v_name] = v_value[v_value.rfind('/resource/') + 10 : ]
+            v_value = res[v_name]['value']
+            v_value = v_value[v_value.rfind('/resource/') + 10 : ]
+            if check_valid(v_value):
+                r[v_name] = v_value
+            else:
+                print("[WARNING] Results for Column %s has a invaild string: %s" % (v_name, v_value))
 
         results.append(r)
 
@@ -240,7 +252,7 @@ class QUERY_FACTS:
                 o = res[variable_name[1]]['value']
                 p = p[p.rfind('/resource/') + 10 : ]
                 o = o[o.rfind('/resource/') + 10 : ]
-                weight = 0.0;
+                weight = 0.0
                 for s in self.entities:
                     if s not in ENTITY_2_ID or o not in ENTITY_2_ID:
                         pass
