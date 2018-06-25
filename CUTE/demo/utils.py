@@ -109,16 +109,24 @@ def query_final_sparql(sparql):
 
     for res in result_dict['results']['bindings']:
         r = {}
+
+        # flag for if any invalid character exists
+        valid_flag = True
+
         for i in range(len(variable_name)):
             v_name = variable_name[i]
             v_value = res[v_name]['value']
             v_value = v_value[v_value.rfind('/resource/') + 10 : ]
-            if check_valid(v_value):
+
+            # Checking if any invalid character exists
+            if check_valid(v_value) == True:
                 r[v_name] = v_value
             else:
+                valid_flag = False
                 print("[WARNING] Results for Column %s has a invaild string: %s" % (v_name, v_value))
 
-        results.append(r)
+        if valid_flag == True:
+            results.append(r)
 
 
     return results
