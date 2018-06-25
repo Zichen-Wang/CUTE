@@ -1,10 +1,12 @@
 
 var common_types, common_facts, common_pattern;
+var old_common_types, old_common_facts;
 
 var sparql, results;
 var negative_results;
 
 var negative_common_types, negative_common_facts;
+var old_nagetive_common_types, old_nagetive_common_facts;
 
 var cleaner = function(uri) {
     let wikicat = uri.indexOf("wikicat");
@@ -79,6 +81,9 @@ var submit_to_server = function() {
     });
 
     $.when(find_attributes, find_pattern).then(function(attributes_data, pattern_data) {
+        old_common_types = common_types;
+        old_common_facts = old_common_facts;
+
         common_types = attributes_data[0]["types"];
         common_facts = attributes_data[0]["facts"];
         common_pattern = pattern_data[0]["pattern"];
@@ -116,6 +121,7 @@ var submit_to_server_neg = function() {
         "entities": entities
     };
 
+    /*
     let find_attributes = $.ajax({
         type: "POST",
         url: "/demo/attributes/",
@@ -141,9 +147,14 @@ var submit_to_server_neg = function() {
     
 
     $.when(find_attributes, find_pattern).then(function(attributes_data, pattern_data) {
+
+        old_negative_common_types = negative_common_types;
+        old_negative_common_facts = negative_common_facts;
+
         negative_common_types = attributes_data[0]["types"];
         negative_common_facts = attributes_data[0]["facts"];
-        common_pattern = pattern_data[0]["pattern"];
+
+
         attributes('_neg');
         $("button").attr("disabled", false);
         $("img.entity_submitting_neg").hide();
@@ -152,6 +163,33 @@ var submit_to_server_neg = function() {
         console.log(err2);
         $("button").attr("disabled", false);
         $("img.entity_submitting_neg").hide();
+    });
+    */
+    $.ajax({
+        type: "POST",
+        url: "/demo/attributes/",
+        data: JSON.stringify(payload),
+        dataType: "json",
+        beforeSend: function() {
+            $("button").attr("disabled", true);
+            $("img.entity_submitting_neg").show();
+        },
+        success: function(data) {
+            old_negative_common_types = negative_common_types;
+            old_negative_common_facts = negative_common_facts;
+            
+            negative_common_types = data["types"];
+            negative_common_facts = data["facts"];
+
+            attributes('_neg');
+        },
+        error: function(err) {
+            console.log(err);
+        },
+        complete: function() {
+            $("button").attr("disabled", false);
+            $("img.entity_submitting_neg").hide();
+        }
     });
 };
 
