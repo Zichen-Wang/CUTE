@@ -21,11 +21,23 @@ var attributes = function(neg) {
 
             if (old_common_facts !== undefined) {
                 $("input[name=fact_po_v" + i + "]:checked").each(function() {
-                    selected_common_facts_po.add(old_common_facts[v_name]["facts_po"][$(this).val()]);
+                    selected_common_facts_po.add(
+                        old_common_facts[v_name]["facts_po"][$(this).val()]["p"]
+                        +
+                        "_*_"
+                        +
+                        old_common_facts[v_name]["facts_po"][$(this).val()]["o"]
+                    );
                 });
 
                 $("input[name=fact_sp_v" + i + "]:checked").each(function() {
-                    selected_common_facts_sp.add(old_common_facts[v_name]["facts_sp"][$(this).val()]);
+                    selected_common_facts_sp.add(
+                        old_common_facts[v_name]["facts_sp"][$(this).val()]["s"]
+                        +
+                        "_*_"
+                        +
+                        old_common_facts[v_name]["facts_sp"][$(this).val()]["p"]
+                    );
                 });
             }
 
