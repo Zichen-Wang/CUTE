@@ -68,7 +68,15 @@ GRAPH = GRAPH_TYPE(*ROW_GRAPH_TMP)
 BASE = "http://yago-knowledge.org/resource/"
 PREFIX_RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 
+# Our Endpoint
 SPARQL_QUERY_URL = "http://162.105.146.140:8001/sparql"
+DEFAULT_GRAPH_URI = ""
+TIMEOUT = 10000
+
+# Public Endpoint
+#SPARQL_QUERY_URL = "https://linkeddata1.calcul.u-psud.fr/sparql"
+#DEFAULT_GRAPH_URI = "http://www.yago-knowledge.org"
+#TIMEOUT = 2000
 
 valid_set = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_,.()'"
 
@@ -88,10 +96,10 @@ def query_final_sparql(sparql):
     # Query
     print(sparql)
     payload = {
-        'default-graph-uri': '',
+        'default-graph-uri': DEFAULT_GRAPH_URI,
         'query': sparql,
         'format': 'application/sparql-results+json',
-        'timeout': 10000,
+        'timeout': TIMEOUT,
         'debug': 'on'
     }
 
@@ -156,10 +164,10 @@ class QUERY_TYPES:
         sparql = self.make_sparql()
 
         payload = {
-            'default-graph-uri': '',
+            'default-graph-uri': DEFAULT_GRAPH_URI,
             'query': sparql,
             'format': 'application/sparql-results+json',
-            'timeout': 10000,
+            'timeout': TIMEOUT,
             'debug': 'on'
         }
 
@@ -236,10 +244,10 @@ class QUERY_FACTS:
         sparql = self.make_sparql()
 
         payload = {
-            'default-graph-uri': '',
+            'default-graph-uri': DEFAULT_GRAPH_URI,
             'query': sparql,
             'format': 'application/sparql-results+json',
-            'timeout': 10000,
+            'timeout': TIMEOUT,
             'debug': 'on'
         }
 
@@ -454,10 +462,10 @@ class QUERY_RELATION_NAMES:
             return
 
         payload = {
-            'default-graph-uri': '',
+            'default-graph-uri': DEFAULT_GRAPH_URI,
             'query': sparql,
             'format': 'application/sparql-results+json',
-            'timeout': 10000,
+            'timeout': TIMEOUT,
             'debug': 'on'
         }
         
