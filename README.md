@@ -20,7 +20,6 @@ Querying Knowledge Graphs by Tabular Examples
 /home/wangzichen/virtuoso/start_daemon.sh
 
 ## Data Load
-refer: http://vos.openlinksw.com/owiki/wiki/VOS/VirtBulkRDFLoader
-Note: isql directory：/home/yxshao/virtuoso/sempre/virtuoso-opensource/install/bin
-isql start command：isql <port> this port is different from the port of start command. We need add 1 before. 8001 is the port for web.
-For example: isql 18001 
+* refer: http://vos.openlinksw.com/owiki/wiki/VOS/VirtBulkRDFLoader
+* Note: isql directory: `/home/yxshao/virtuoso/sempre/virtuoso-opensource/install/bin`
+* isql start command: `isql <port>` this port is different from the port of start command. We need add `1` before. `8001` is the port for web. For example: `isql 18001`
