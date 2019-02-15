@@ -10,7 +10,7 @@ Querying Knowledge Graphs by Tabular Examples
 
 
 # Internal SPARQL Service
-* url: http://162.105.146.140:8001/sparql
+* url: http://162.105.146.140:8001/sparql (can only be accessed from PKU inner network)
 * dataset: yagoFacts (cleaned); yagoTransitiveTypes
 
 # Virtuoso Directory
