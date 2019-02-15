@@ -13,14 +13,14 @@ Querying Knowledge Graphs by Tabular Examples
 * url: http://162.105.146.140:8001/sparql
 * dataset: yagoFacts (cleaned); yagoTransitiveTypes
 
-# Virtuoso目录
+# Virtuoso Directory
 /home/wangzichen/virtuoso/
 
-## 启动脚本位置：
+## Start Command
 /home/wangzichen/virtuoso/start_daemon.sh
 
-## Data load
+## Data Load
 refer: http://vos.openlinksw.com/owiki/wiki/VOS/VirtBulkRDFLoader
-注意：isql 所在目录位置：/home/yxshao/virtuoso/sempre/virtuoso-opensource/install/bin
-isql启动命令为：isql <port> 这里的port与启动命令的port不一致，需要前面加 1。前面的8001是web页面的端口。
-比如 isql 18001 
+Note: isql directory：/home/yxshao/virtuoso/sempre/virtuoso-opensource/install/bin
+isql start command：isql <port> this port is different from the port of start command. We need add 1 before. 8001 is the port for web.
+For example: isql 18001 
